@@ -26,12 +26,7 @@ class MainActivity : AppCompatActivity() {
             integrator.setOrientationLocked(true)
             integrator.initiateScan()
         }
-
-        val test = findViewById<Button>(R.id.test)
-        test.setOnClickListener {
-            startActivity(AddressDetailView.newIntent(this, "NBC2DGINGDEUOE7DURMCHX6YXCKBYUROL3E3BG3X"))
-        }
-
+gi
         val goButton = findViewById<Button>(R.id.goAddress)
         goButton.setOnClickListener {
             startActivity(AddressDetailView.newIntent(this, findViewById<EditText>(R.id.enterAddress).text.toString()))
