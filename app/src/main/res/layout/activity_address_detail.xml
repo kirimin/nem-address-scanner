@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="me.kirimin.nemaddressscanner.ui.detail.AddressDetailViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewmodel.isLoadingField ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:layout_constraintTop_toTopOf="parent"
+                android:minHeight="56dp"/>
+
+            <android.support.constraint.ConstraintLayout
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                >
+
+                <ImageView
+                    android:id="@+id/qrcode"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:visibility="@{viewmodel.hasAccountDataField ? View.VISIBLE : View.INVISIBLE}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/addressTitle"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Address:"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="@{viewmodel.hasAccountDataField ? View.VISIBLE :  View.INVISIBLE}"
+                    app:layout_constraintTop_toBottomOf="@+id/qrcode"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="233dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{viewmodel.addressField}"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    android:visibility="@{viewmodel.hasAccountDataField ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toTopOf="@+id/balanceTitle"
+                    app:layout_constraintEnd_toStartOf="@+id/copyButton"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/addressTitle"
+                    app:layout_constraintTop_toTopOf="@id/addressTitle"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+
+                <ImageView
+                    android:id="@+id/copyButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:onClick="@{viewmodel::onClickCopyButton}"
+                    android:src="@drawable/baseline_file_copy_black_18dp"
+                    android:tint="@color/colorPrimaryDark"
+                    android:visibility="@{viewmodel.hasAccountDataField ? View.VISIBLE :  View.INVISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/address"
+                    app:layout_constraintTop_toTopOf="@+id/address" />
+
+                <TextView
+                    android:id="@+id/balanceTitle"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:text="Balance:"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="@{viewmodel.hasAccountDataField ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintTop_toBottomOf="@+id/addressTitle" />
+
+                <TextView
+                    android:id="@+id/balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="28dp"
+                    android:text="@{viewmodel.balanceField}"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp"
+                    android:visibility="@{viewmodel.hasAccountDataField ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toEndOf="@+id/balanceTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/addressTitle"
+                    tools:text="balance" />
+
+                <TextView
+                    android:id="@+id/mosaicsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Mosaics"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="@{viewmodel.hasAccountDataField ? View.VISIBLE :  View.INVISIBLE}"
+                    app:layout_constraintTop_toBottomOf="@+id/balance" />
+
+                <TextView
+                    android:id="@+id/mosaics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewmodel.mosaicsField}"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp"
+                    android:visibility="@{viewmodel.hasAccountDataField ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintTop_toBottomOf="@id/mosaicsTitle"
+                    tools:text="mosaics" />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</layout>
